@@ -1,0 +1,6 @@
+keytool -genkeypair -alias my-config-server-key -keyalg RSA -dname "CN=Config Server, OU=Development, O=SerhiiJudi, L=YourCity, S=YourState, C=YourCountry" -keypass changeme -keystore server.jks -storepass changeme
+
+curl -X "GET" "http://localhost:8888/service-name/service-profile" -H "X-Config-Token: 00000000-0000-0000-0000-000000000000"
+
+curl -X "POST" "http://localhost:8888/config-server/encrypt" -H "Content-Type: text/plain" -d "kkllk+ a"
+curl -X "POST" "http://localhost:8888/config-server/decrypt" -H "Content-Type: text/plain" -d "9e5fcc9ab837f4c1d3ad5e1e90d3eeb9f07531b8859a37695c097baa943177bc"

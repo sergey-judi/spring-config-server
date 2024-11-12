@@ -1,6 +1,9 @@
 server:
   port: 8888
 
+encrypt:
+  key: secret-key
+
 spring:
   application:
     name: spring-config-server
@@ -18,5 +21,11 @@ spring:
       request-read-timeout: 5
       server:
         prefix: config-server
+        encrypt:
+          plain-text-encrypt: true
+          enabled: true
+        native:
+          default-label: develop
+          fail-on-error: true
         git:
           uri: file://${HOME}/Development/own-sandbox/configs
