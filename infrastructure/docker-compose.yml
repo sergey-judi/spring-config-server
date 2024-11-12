@@ -1,0 +1,45 @@
+# https://github.com/hyness/spring-cloud-config-server
+
+services:
+  config-server:
+    depends_on:
+      - vault
+    image: local-config-server:0.0.1-stable
+    ports:
+      - "8888:8888"
+    environment:
+      SPRING_PROFILES_ACTIVE: vault
+      SPRING_CLOUD_CONFIG_SERVER_VAULT_TOKEN: 00000000-0000-0000-0000-000000000000
+      SPRING_CLOUD_CONFIG_SERVER_VAULT_HOST: vault
+      SPRING_CLOUD_CONFIG_SERVER_VAULT_KV_VERSION: 2
+    networks:
+      - vault-network
+
+  vault:
+    privileged: true
+    image: hashicorp/vault:latest
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: 00000000-0000-0000-0000-000000000000
+      VAULT_TOKEN: 00000000-0000-0000-0000-000000000000
+      VAULT_ADDR: http://127.0.0.1:8200
+      VAULT_LOCAL_CONFIG: |
+        {
+          "default_lease_ttl": "168h",
+          "max_lease_ttl": "720h",
+          "ui": "true"
+        }
+    volumes:
+      - ./init-vault.sh:/init-vault.sh
+    entrypoint: /bin/sh -c "vault server -dev -dev-listen-address=0.0.0.0:8200 & sleep 5 && ./init-vault.sh && tail -f /dev/null"
+    networks:
+      - vault-network
+#    --- Setup via hcl config
+#    volumes:
+#      - ./vault.hcl:/vault/config/vault.hcl  # Mount the config file
+#      - ./vault-data:/vault/data  # Mount persistent data directory
+#    entrypoint: "/bin/sh -c 'vault server -config=/vault/config/vault.hcl'"
+
+networks:
+  vault-network:
