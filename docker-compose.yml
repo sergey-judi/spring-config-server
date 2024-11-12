@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  vault:
+    image: hashicorp/vault:latest
+    container_name: vault
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: "00000000-0000-0000-0000-000000000000"
+      VAULT_LOCAL_CONFIG: |
+        {
+          "backend": {
+            "file": {
+              "path": "/vault/file"
+            }
+          },
+          "default_lease_ttl": "168h",
+          "max_lease_ttl": "720h",
+          "ui": "true"
+        }
+    cap_add:
+      - IPC_LOCK
