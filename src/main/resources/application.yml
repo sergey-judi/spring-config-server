@@ -5,6 +5,8 @@ encrypt:
   key: secret-key
 
 spring:
+  profiles:
+    active: git,vault
   application:
     name: spring-config-server
   main:
@@ -27,5 +29,3 @@ spring:
         native:
           default-label: develop
           fail-on-error: true
-        git:
-          uri: file://${HOME}/Development/own-sandbox/configs

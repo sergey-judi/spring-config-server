@@ -1,45 +1,9 @@
-server:
-  port: 8888
-
 spring:
-  profiles:
-    active: vault
-  application:
-    name: spring-config-server
-  main:
-    banner-mode: off
-    allow-bean-definition-overriding: true
   cloud:
-    vault:
-      uri: http://localhost:8200
-      authentication: token
-      token: "00000000-0000-0000-0000-000000000000"
-      connection-timeout: 5000
-      read-timeout: 15000
-      scheme: http
     config:
-      enabled: true
-      allow-override: true
-      override-system-properties: true
-      override-none: true
-      name: ${spring.application.name}
-      fail-fast: true
-      request-connect-timeout: 5
-      request-read-timeout: 5
       server:
         vault:
           authentication: token
           token: "00000000-0000-0000-0000-000000000000"
-          path-to-key: data
           kv-version: 2
           default-key: ${spring.application.name}
-          backend: kv
-        prefix: config-server
-        encrypt:
-          plain-text-encrypt: true
-          enabled: true
-        native:
-          default-label: develop
-          fail-on-error: true
-        git:
-          uri: ${HOME}/Development/own-sandbox/configs
