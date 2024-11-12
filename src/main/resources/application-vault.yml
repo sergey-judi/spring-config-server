@@ -4,6 +4,6 @@ spring:
       server:
         vault:
           authentication: token
-          token: "00000000-0000-0000-0000-000000000000"
+          token: "{cipher}420402ac7cf6192cd034a6bafab891ddc88d8ac46cd52910c6338607ccc1987651bef4a416775cbbe528c5bfc312ad697a546fa9f893a046b0a251c432a9e513"
           kv-version: 2
           default-key: ${spring.application.name}

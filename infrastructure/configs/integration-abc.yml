@@ -1,0 +1,7 @@
+properties:
+  numeric-value: 1
+  string-value: key
+  list-value: ["value"]
+  map-value:
+    k1: v1
+    k2: v2

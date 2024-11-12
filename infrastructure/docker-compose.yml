@@ -8,10 +8,13 @@ services:
     ports:
       - "8888:8888"
     environment:
-      SPRING_PROFILES_ACTIVE: vault
+      SPRING_PROFILES_ACTIVE: git,vault
       SPRING_CLOUD_CONFIG_SERVER_VAULT_TOKEN: 00000000-0000-0000-0000-000000000000
       SPRING_CLOUD_CONFIG_SERVER_VAULT_HOST: vault
       SPRING_CLOUD_CONFIG_SERVER_VAULT_KV_VERSION: 2
+      SPRING_CLOUD_CONFIG_SERVER_GIT_URI: file://service-configs
+    volumes:
+      - ./configs:/service-configs
     networks:
       - vault-network
 
