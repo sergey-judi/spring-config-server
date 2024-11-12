@@ -1,0 +1,22 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: spring-config-server
+  main:
+    banner-mode: off
+  cloud:
+    config:
+      enabled: true
+      allow-override: true
+      override-system-properties: true
+      override-none: true
+      name: ${spring.application.name}
+      fail-fast: true
+      request-connect-timeout: 5
+      request-read-timeout: 5
+      server:
+        prefix: config-server
+        git:
+          uri: file://${HOME}/Development/own-sandbox/configs
